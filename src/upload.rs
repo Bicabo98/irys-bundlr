@@ -9,8 +9,7 @@ use crate::{
     error::BundlrError,
 };
 
-#[derive(Debug)]
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 struct IdRes {
     id: String,
     max: u64,
@@ -67,7 +66,7 @@ impl Uploader {
                 .await
                 .map_err(|err| BundlrError::ParseError(err.to_string()))?;
 
-            println!("test 1 url : {:?},res : {:?}",url.clone(),res);
+            println!("test 1 url : {:?},res : {:?}", url.clone(), res);
 
             (res.max, res.min)
         } else {
@@ -86,15 +85,15 @@ impl Uploader {
                 .await
                 .map_err(|err| BundlrError::ParseError(err.to_string()))?;
 
-                println!("test 2 url : {:?},res : {:?}",url.clone(),res);
+            println!("test 2 url : {:?},res : {:?}", url.clone(), res);
 
             self.upload_id = Some(res.id);
 
             (res.max, res.min)
         };
 
-        println!("current chunk_size : {}",self.chunk_size);
-        println!("current min : {},current max : {}",min,max);
+        println!("current chunk_size : {}", self.chunk_size);
+        println!("current min : {},current max : {}", min, max);
 
         if self.chunk_size < min || self.chunk_size > max {
             return Err(BundlrError::ChunkSizeOutOfRange(min, max));

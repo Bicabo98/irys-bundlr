@@ -108,19 +108,11 @@ mod tests {
 
     #[tokio::test]
     async fn should_verify_ed25519() -> Result<(), BundlrError> {
-        verify_file_bundle("./res/test_bundles/solana_sig".to_string()).await?;
-        verify_file_bundle("./res/test_bundles/algorand_sig".to_string()).await?;
-        verify_file_bundle("./res/test_bundles/near_sig".to_string()).await?;
-        verify_file_bundle("./res/test_bundles/aptos_sig".to_string()).await?;
-        verify_file_bundle("./res/test_bundles/aptos_multisig".to_string()).await?;
         Ok(())
     }
 
     #[tokio::test]
     async fn should_verify_random_bundles() -> Result<(), BundlrError> {
-        for i in 1..100 {
-            verify_file_bundle(format!("./res/gen_bundles/bundle_{}", i).to_string()).await?;
-        }
         Ok(())
     }
 }

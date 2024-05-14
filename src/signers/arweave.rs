@@ -102,7 +102,8 @@ mod tests {
 
     #[test]
     fn should_verify_receipt() {
-        let data = std::fs::read_to_string("res/test_receipt_copy.json").expect("Unable to read file");
+        let data =
+            std::fs::read_to_string("res/test_receipt_copy.json").expect("Unable to read file");
         let receipt = serde_json::from_str::<Receipt>(&data).expect("Unable to parse json file");
 
         let fields = DeepHashChunk::Chunks(vec![

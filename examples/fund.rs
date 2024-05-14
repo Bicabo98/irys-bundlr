@@ -1,6 +1,8 @@
 use std::{path::PathBuf, str::FromStr};
 
-use race_bundlr_sdk::{bundlr::BundlrBuilder, currency::arweave::ArweaveBuilder, error::BundlrError};
+use race_bundlr_sdk::{
+    bundlr::BundlrBuilder, currency::arweave::ArweaveBuilder, error::BundlrError,
+};
 use reqwest::Url;
 
 #[tokio::main]

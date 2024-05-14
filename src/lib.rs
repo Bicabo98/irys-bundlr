@@ -3,7 +3,6 @@ extern crate derive_builder;
 mod signers;
 mod transaction;
 
-
 pub mod client;
 
 pub mod bundlr;
@@ -17,7 +16,6 @@ pub mod tags;
 pub mod upload;
 pub mod utils;
 pub mod verify;
-
 
 pub use bundlr::{Bundlr, BundlrBuilder};
 pub use signers::Signer;

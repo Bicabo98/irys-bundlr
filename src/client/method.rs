@@ -1,5 +1,3 @@
-
-
 #[derive(Clone, Debug)]
 pub enum Method {
     Help = 0,

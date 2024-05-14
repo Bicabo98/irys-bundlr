@@ -149,7 +149,7 @@ where
 /// # Examples
 ///
 /// ```
-/// # use bundlr_sdk::bundlr::get_pub_info;
+/// # use race_bundlr_sdk::bundlr::get_pub_info;
 /// # use reqwest::Url;
 /// # tokio_test::block_on(async {
 /// let url = Url::parse("https://node1.bundlr.network/").unwrap();
@@ -191,13 +191,9 @@ pub async fn get_balance(
         .await;
 
     match check_and_return::<BalanceResData>(response).await {
-
         Ok(d) => match BigUint::from_str(&d.balance) {
-         
             Ok(ok) => Ok(ok),
-            Err(err) => {
-                Err(BundlrError::TypeParseError(err.to_string()))
-            }
+            Err(err) => Err(BundlrError::TypeParseError(err.to_string())),
         },
         Err(err) => Err(BundlrError::TypeParseError(err.to_string())),
     }
@@ -239,7 +235,7 @@ where
     /// # Examples
     ///
     /// ```
-    /// # use bundlr_sdk::{
+    /// # use race_bundlr_sdk::{
     /// #   currency::CurrencyType,
     /// #   BundlrBuilder,
     /// #   currency::arweave::ArweaveBuilder,
@@ -281,7 +277,7 @@ where
     /// # Examples
     ///
     /// ```
-    /// # use bundlr_sdk::{
+    /// # use race_bundlr_sdk::{
     /// #   currency::CurrencyType,
     /// #   BundlrBuilder,
     /// #   currency::arweave::ArweaveBuilder,
@@ -322,7 +318,7 @@ where
     /// # Examples
     ///
     /// ```
-    /// # use bundlr_sdk::{
+    /// # use race_bundlr_sdk::{
     /// #   currency::CurrencyType,
     /// #   BundlrBuilder,
     /// #   currency::arweave::ArweaveBuilder,
@@ -377,7 +373,7 @@ where
     /// # Example
     ///
     /// ```
-    /// # use bundlr_sdk::{
+    /// # use race_bundlr_sdk::{
     /// #   currency::CurrencyType,
     /// #   BundlrBuilder,
     /// #   currency::arweave::ArweaveBuilder,
@@ -439,7 +435,7 @@ where
     /// # Example
     ///
     /// ```
-    /// # use bundlr_sdk::{
+    /// # use race_bundlr_sdk::{
     /// #   currency::CurrencyType,
     /// #   BundlrBuilder,
     /// #   currency::arweave::ArweaveBuilder,
@@ -515,7 +511,7 @@ where
     /// # Example
     ///
     /// ```
-    /// # use bundlr_sdk::{
+    /// # use race_bundlr_sdk::{
     /// #   currency::CurrencyType,
     /// #   BundlrBuilder,
     /// #   currency::arweave::ArweaveBuilder,

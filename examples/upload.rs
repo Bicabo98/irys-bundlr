@@ -4,30 +4,27 @@ use std::{path::PathBuf, str::FromStr};
 
 use race_bundlr_sdk::currency::CurrencyType;
 use race_bundlr_sdk::{
-    bundlr::BundlrBuilder, 
-    currency::solana::SolanaBuilder, 
+    bundlr::BundlrBuilder, client::upload::run_upload, currency::solana::SolanaBuilder,
     error::BundlrError,
-    client::upload::run_upload,
 };
 use reqwest::Url;
 
-use serde::{Deserialize,Serialize};
+use bincode;
+use serde::{Deserialize, Serialize};
+use std::fs::File;
 use std::io::prelude::*;
 use std::io::Result as IoResult;
-use bincode;
-use std::fs::File;
-use std::io::{self,Read};
+use std::io::{self, Read};
 
-#[derive(Debug)]
-#[derive(Serialize,Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Person {
-    name:String,
-    age:u16,
+    name: String,
+    age: u16,
 }
 
 impl Person {
     fn to_vec(&self) -> IoResult<Vec<u8>> {
-        bincode::serialize(self).map_err(|e| std::io::Error::new(std::io::ErrorKind::Other,e))
+        bincode::serialize(self).map_err(|e| std::io::Error::new(std::io::ErrorKind::Other, e))
     }
 }
 
@@ -40,12 +37,11 @@ fn read_from_file(file_path: &str) -> io::Result<Person> {
     file.read_to_end(&mut buffer)?;
 
     // 反序列化 Vec<u8> 到 MyStruct
-    let my_struct = bincode::deserialize(&buffer)
-        .map_err(|e| io::Error::new(io::ErrorKind::InvalidData, e))?;
+    let my_struct =
+        bincode::deserialize(&buffer).map_err(|e| io::Error::new(io::ErrorKind::InvalidData, e))?;
 
     Ok(my_struct)
 }
-
 
 #[tokio::main]
 async fn main() -> io::Result<()> {
@@ -59,18 +55,20 @@ async fn main() -> io::Result<()> {
     //     }
     // }
 
-        
-    let person = Person {name:"wdnmd".to_string(),age:999};
+    let person = Person {
+        name: "wdnmd".to_string(),
+        age: 999,
+    };
     let buffer = person.to_vec().map_err(BundlrError::from).expect("REASON");
 
-    let url_str = "https://node1.irys.xyz";  
+    let url_str = "https://node1.irys.xyz";
     let url = Url::parse(url_str).expect("Invalid URL");
 
     let work = run_upload(
-        url, 
-        "bHvZk4Hqq19njiNAL5pVYBYd5LoRPGp92tYEFR4YbEsUNFCctj57Q2e8pkbyHDkD6jQua4BEip4TG9LE2hQn6GR", 
+        url,
+        "bHvZk4Hqq19njiNAL5pVYBYd5LoRPGp92tYEFR4YbEsUNFCctj57Q2e8pkbyHDkD6jQua4BEip4TG9LE2hQn6GR",
         CurrencyType::Solana,
-        buffer
+        buffer,
     );
     match tokio::time::timeout(Duration::from_millis(1000 * 30), work).await {
         Ok(res) => match res {
@@ -82,8 +80,6 @@ async fn main() -> io::Result<()> {
 
     Ok(())
 }
-
-
 
 // #[tokio::main]
 // async fn main() -> Result<(), BundlrError> {

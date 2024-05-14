@@ -14,7 +14,6 @@ use reqwest::StatusCode;
 use serde::{Deserialize, Serialize};
 use std::str::FromStr;
 
-
 use crate::{
     error::BundlrError,
     transaction::{Tx, TxStatus},

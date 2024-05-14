@@ -1,7 +1,7 @@
+use data_encoding::BASE64URL_NOPAD;
 use race_bundlr_sdk::{
     deep_hash::DeepHashChunk, deep_hash_sync::deep_hash_sync, ArweaveSigner, Verifier,
 };
-use data_encoding::BASE64URL_NOPAD;
 use serde::{Deserialize, Serialize};
 
 // ===============================================================================================
@@ -37,7 +37,7 @@ fn main() -> Result<(), race_bundlr_sdk::error::BundlrError> {
     let pubk = BASE64URL_NOPAD
         .decode(&receipt.public.into_bytes())
         .unwrap();
-   
+
     let msg = deep_hash_sync(fields).unwrap();
 
     let sig = BASE64URL_NOPAD

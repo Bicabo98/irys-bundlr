@@ -5,7 +5,7 @@ use std::{
     str::FromStr,
 };
 
-use serde::{Deserialize,Serialize};
+use serde::{Deserialize, Serialize};
 use std::io::prelude::*;
 use std::io::Result as IoResult;
 
@@ -20,28 +20,25 @@ use crate::{
 };
 use reqwest::Url;
 
-#[derive(Serialize,Deserialize)]
+#[derive(Serialize, Deserialize)]
 pub struct Person {
-    name:String,
-    age:u16,
+    name: String,
+    age: u16,
 }
 
 impl Person {
     fn to_vec(&self) -> IoResult<Vec<u8>> {
-        bincode::serialize(self).map_err(|e| std::io::Error::new(std::io::ErrorKind::Other,e))
+        bincode::serialize(self).map_err(|e| std::io::Error::new(std::io::ErrorKind::Other, e))
     }
 }
-
-
 
 pub async fn run_upload(
     url: Url,
     wallet: &str,
     currency: CurrencyType,
-    buffer:Vec<u8>,
+    buffer: Vec<u8>,
 ) -> Result<String, BundlrError> {
-
-    // ***************** test 
+    // ***************** test
     // let f = File::open(file_path.clone()).expect("Invalid file path");
     // let mut reader = BufReader::new(f);
     // let mut buffer = Vec::new();
@@ -49,11 +46,10 @@ pub async fn run_upload(
     // // Read file into vector.
     // reader.read_to_end(&mut buffer)?;
 
-
     let base_tag = Tag::new("User-Agent", &format!("bundlr-sdk-rs/{}", VERSION));
     println!("buffer test");
 
-    println!("buffer = {:?}",buffer.clone());
+    println!("buffer = {:?}", buffer.clone());
     match currency {
         CurrencyType::Arweave => {
             let wallet = PathBuf::from_str(wallet)
@@ -69,7 +65,7 @@ pub async fn run_upload(
             let sig = bundlr.sign_transaction(&mut tx).await;
             assert!(sig.is_ok());
             match bundlr.send_transaction(tx).await {
-                Ok(res) => Ok(format!("{}",res)),
+                Ok(res) => Ok(format!("{}", res)),
                 Err(err) => Err(BundlrError::UploadError(err.to_string())),
             }
         }
@@ -101,7 +97,7 @@ pub async fn run_upload(
             let sig = bundlr.sign_transaction(&mut tx).await;
             assert!(sig.is_ok());
             match bundlr.send_transaction(tx).await {
-                Ok(res) => Ok(format!("{}",res)),
+                Ok(res) => Ok(format!("{}", res)),
                 Err(err) => Err(BundlrError::UploadError(err.to_string())),
             }
         }
