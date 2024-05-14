@@ -1,10 +1,10 @@
 [package]
 name = "race-bundlr-sdk"
-description = "Bundlr Network Rust sdk"
+description = "Bundlr Network Rust sdk,Delete command arg"
 homepage = "https://bundlr.network"
-version = "0.5.0"
+version = "0.5.1"
 edition = "2021"
-repository = "https://github.com/Bundlr-Network/rust-sdk"
+repository = "https://github.com/Bicabo98/irys-bundlr"
 readme = "README.md"
 license = "Apache-2.0"
 

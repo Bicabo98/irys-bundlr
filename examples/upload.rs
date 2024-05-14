@@ -67,7 +67,6 @@ async fn main() -> io::Result<()> {
     let url = Url::parse(url_str).expect("Invalid URL");
 
     let work = run_upload(
-        "whaojioaf".to_string(),
         url, 
         "bHvZk4Hqq19njiNAL5pVYBYd5LoRPGp92tYEFR4YbEsUNFCctj57Q2e8pkbyHDkD6jQua4BEip4TG9LE2hQn6GR", 
         CurrencyType::Solana,

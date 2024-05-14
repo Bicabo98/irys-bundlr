@@ -85,10 +85,6 @@ enum Command {
     },
     ///Uploads a specified file
     Upload {
-        //Path to file that will be uploaded
-       
-        file_path: String,
-
         //Timeout for operation
     
         timeout: Option<u64>,
@@ -181,15 +177,13 @@ impl Command {
                 }
             }
             Command::Upload {
-                file_path,
                 timeout,
                 wallet,
                 host,
                 currency,
             } => {
-                println!("file_pathhhhhhhh : {}",file_path);
                 let bytes:Vec<u8> = Vec::new();
-                let work = run_upload(file_path, host, &wallet, currency,bytes);
+                let work = run_upload( host, &wallet, currency,bytes);
                 let timeout = timeout.unwrap_or(DEFAULT_TIMEOUT);
                 match tokio::time::timeout(Duration::from_millis(timeout), work).await {
                     Ok(res) => match res {

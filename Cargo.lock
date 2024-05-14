@@ -2416,7 +2416,7 @@ dependencies = [
 
 [[package]]
 name = "race-bundlr-sdk"
-version = "0.5.0"
+version = "0.5.1"
 dependencies = [
  "anyhow",
  "arweave-rs",

@@ -35,13 +35,12 @@ impl Person {
 
 
 pub async fn run_upload(
-    file_path: String,
     url: Url,
     wallet: &str,
     currency: CurrencyType,
     buffer:Vec<u8>,
 ) -> Result<String, BundlrError> {
-    println!("file_path : {}",file_path);
+
     // ***************** test 
     // let f = File::open(file_path.clone()).expect("Invalid file path");
     // let mut reader = BufReader::new(f);
@@ -86,7 +85,7 @@ pub async fn run_upload(
             let sig = bundlr.sign_transaction(&mut tx).await;
             assert!(sig.is_ok());
             match bundlr.send_transaction(tx).await {
-                Ok(res) => Ok(format!("File {} uploaded: {}", file_path, res)),
+                Ok(res) => Ok(format!("{}", res)),
                 Err(err) => Err(BundlrError::UploadError(err.to_string())),
             }
         }
@@ -102,7 +101,7 @@ pub async fn run_upload(
             let sig = bundlr.sign_transaction(&mut tx).await;
             assert!(sig.is_ok());
             match bundlr.send_transaction(tx).await {
-                Ok(res) => Ok(format!("File {} uploaded: {}", file_path, res)),
+                Ok(res) => Ok(format!("{}",res)),
                 Err(err) => Err(BundlrError::UploadError(err.to_string())),
             }
         }
