@@ -32,12 +32,18 @@ impl Person {
     }
 }
 
+//   Result<String, BundlrError>
+
 pub async fn run_upload(
     url: Url,
     wallet: &str,
     currency: CurrencyType,
     buffer: Vec<u8>,
-) -> Result<String, BundlrError> {
+) -> Result<String, BundlrError>
+where
+    Result<String,BundlrError>: Send
+
+{
     // ***************** test
     // let f = File::open(file_path.clone()).expect("Invalid file path");
     // let mut reader = BufReader::new(f);
